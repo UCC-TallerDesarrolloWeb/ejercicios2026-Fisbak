@@ -13,7 +13,33 @@
             Links de navegacion
         </nav>
         <aside class="item3">
-            Filtros
+            <fildset>
+                <legend>Buscador</legend>
+                <label for="search">Buscar</label>
+                <input type="text" name="search" id="search" placeholder="Buscar...">
+            </fildset>
+            <fieldset>
+                <legend>Precios</legend>
+                <p>
+                    <label for="price-min">Minimo</label>
+                    <input type="number" name="price=min" id="price-min" min="0">
+                </p>
+                <p>
+                    <label for="price-max">Maximo</label>
+                    <input type="number" name="price=max" id="price-max" min="0">
+                </p>
+            </fieldset>
+            <fieldset>
+                <legend>Tipo de Productos</legend>
+                <p>
+                    <input type="checkbox" name="tipo" id="protectores" value="protectores">
+                    <label for="protectores">Protectores</label>
+                    <input type="checkbox" name="tipo" id="entrenamiento" value="entrenamiento">
+                    <label for="entrenamiento">Entrenamiento</label>
+                    <input type="checkbox" name="tipo" id="dobok" value="dobok">
+                    <label for="dobok">Dobok</label>
+                </p>
+            </fieldset>
         </aside>
 
         <main class="item4">
