@@ -28,6 +28,23 @@ function convertirUnidades(id, valor){
         document.getElementById("pulgada").value = valor*36;
         document.getElementById("pie").value = valor*3;
     }
+}
 
+/**
+ * Conversion de grados y radianes
+ * @method convertirGR
+ * @param {string} id - Id del elemento input en el html
+ */
+function convertirGR(id){
+    let grad, rad;
+    if(id==="grados"){
+        grad = document.getElementById("grados").value;
+        rad = (grad*Math.PI)/180
+        document.getElementById("radianes").value = rad;
+    }else{
+        rad = document.getElementById("radianes").value;
+        grad = (rad*180)/Math.PI;
+        document.getElementById("grados").value = grad;
+    }
 
 }
