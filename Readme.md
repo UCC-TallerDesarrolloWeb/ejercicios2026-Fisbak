@@ -36,7 +36,7 @@
 -  [x] Pseudo Clases
 -  [x] CV
 -  [x] Backgrounds
--  [ ] Position
+-  [x] Position
 -  [x] 2 Columnas
 -  [x] Grid
 -  [x] grid-areas
@@ -47,9 +47,9 @@
 
 ## Unidad 3: JavaScript y ES6+
 
--  [ ] Hola Mundo!
--  [ ] Conversor de Unidades
--  [ ] Documentación
+-  [x] Hola Mundo!
+-  [x] Conversor de Unidades
+-  [x] Documentación
 -  [ ] Grados a Radianes
 -  [ ] Refactorización
 -  [ ] Mostrar/Ocultar div
