@@ -78,3 +78,47 @@ mostrarOcultar = (valor) => {
     //      document.getElementById("unDiv").style.display = 'none';
     //  }
 }
+
+/**
+ * Sumar dos numeros ingresados por el usuario
+ * @method calcularSuma
+ */
+calcularSuma = () => {
+    let sum1, sum2;
+    sum1 = Number(document.getElementById("nums1").value);
+    sum2 = Number(document.getElementById("nums2").value);
+    document.getElementById("totalS").value = sum1+sum2;
+}
+
+/**
+ * Restar al primer numero ingresado el segundo ingresado por el usuario
+ * @method calcularResta
+ */
+calcularResta = () => {
+    let res1, res2;
+    res1 = Number(document.getElementById("numr1").value);
+    res2 = Number(document.getElementById("numr2").value);
+    document.getElementById("totalR").value = res1-res2;
+}
+
+/**
+ * multiplicar dos numeros ingresados por el usuario
+ * @method calcularMul
+ */
+calcularMul = () => {
+    let mul1, mul2;
+    mul1 = Number(document.getElementById("numm1").value);
+    mul2 = Number(document.getElementById("numm2").value);
+    document.getElementById("totalM").value = mul1*mul2;
+}
+
+/**
+ * dividir al primer numero ingresado el segundo ingresado por el usuario
+ * @method calcularDiv
+ */
+calcularDiv = () => {
+    let ndiv1, ndiv2;
+    ndiv1 = Number(document.getElementById("numd1").value);
+    ndiv2 = Number(document.getElementById("numd2").value);
+    document.getElementById("totalD").value = ndiv1/ndiv2;
+}
