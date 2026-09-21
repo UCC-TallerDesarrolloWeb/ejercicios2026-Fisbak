@@ -12,6 +12,7 @@ convertirUnidades = (id, valor) => {
     pies = document.getElementById("pie").value;
     yardas = document.getElementById("yarda").value;
 
+
     if(isNaN(valor)){
         alert("Se ingreso un valor no numerico en: "+ id);
         metros = "";
@@ -59,4 +60,21 @@ function convertirGR(id){
         document.getElementById("grados").value = grad;
     }
 
+}
+
+/**
+ * Mostrar u ocultar div segun seleccion del usuario
+ * @method mostrarOcultar
+ * @param {string} valor - valor del Id del radio button seleccionado
+ */
+mostrarOcultar = (valor) => {
+    const displayDiv = valor==="val_mostrar" ? 'block' : 'none';
+    document.getElementById("unDiv").style.display = displayDiv;
+
+    //
+    //  if(valor==="val_mostrar"){
+    //      document.getElementById("unDiv").style.display = 'block';
+    //  }else{
+    //      document.getElementById("unDiv").style.display = 'none';
+    //  }
 }
