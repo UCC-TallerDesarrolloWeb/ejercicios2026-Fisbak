@@ -6,7 +6,7 @@
         <script type="text/javascript" src="tienda.js"></script>
     </head>
 
-    <body class="grid-container">
+    <body class="grid-container" onload="mostrarCatalogo()">
         <header class="item1">
             Catalogo de Productos
         </header>
@@ -43,43 +43,13 @@
                 </p>
             </fieldset>
         </aside>
+        <dialog id="modal">
+            <h2>Cabezal Cerrado</h2>
+            <p>Cabezal de sparring disponible en color azul y rojo.</p>
+            <button type="button" onclick="cerrarModal()">Cerrar</button>
+        </dialog>
+        <main id="catalogo" class="item4">
 
-        <main class="item4">
-            <dialog id="modal">
-                <h2>Cabezal Cerrado</h2>
-                <p>Cabezal de sparring disponible en color azul y rojo.</p>
-                <button type="button" onclick="cerrarModal()">Cerrar</button>
-            </dialog>
-            <div>
-                <img src=" https://ucc-tallerdesarrolloweb.github.io/filminas/images/ejercicios/cabezal-cerrado.webp" alt="Cabezal cerrado" />
-                <h3>Cabezal Cerrado</h3>
-                <button type="button" onclick="mostrarModal()">ver detalle de Producto</button>
-            </div>
-
-            <div>
-                <img src=" https://ucc-tallerdesarrolloweb.github.io/filminas/images/ejercicios/dobok.webp" alt="dobok" />
-                <h3>Dobok</h3>
-            </div>
-
-            <div>
-                <img src=" https://ucc-tallerdesarrolloweb.github.io/filminas/images/ejercicios/escudo-potencia.webp" alt="Escudo de potencia" />
-                <h3>Escudo de Potencia</h3>
-            </div>
-
-            <div>
-                <img src=" https://ucc-tallerdesarrolloweb.github.io/filminas/images/ejercicios/foco-con-dedos.webp" alt="Foco con Dedos" />
-                <h3>Foco con Dedos</h3>
-            </div>
-
-            <div>
-                <img src=" https://ucc-tallerdesarrolloweb.github.io/filminas/images/ejercicios/protectores-manos.webp" alt="Protectores manos" />
-                <h3>Protectores de Manos</h3>
-            </div>
-
-            <div>
-                <img src=" https://ucc-tallerdesarrolloweb.github.io/filminas/images/ejercicios/protectores-pie.webp" alt="Protectores pies" />
-                <h3>Protectores de pies</h3>
-            </div>
         </main>
 
         <footer class="item5">
