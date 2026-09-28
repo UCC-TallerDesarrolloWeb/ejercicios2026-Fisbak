@@ -61,3 +61,249 @@ const productos = [
     imagen: "protectores-manos.webp",
   },
 ];
+
+/**
+ * Mostrar un modal con el detalle de Producto
+ * @method mostrarModal
+ * @param num - Id del producto(const)
+ */
+mostrarModal = (num) => {
+  document.getElementById("nombre-producto").innerText = productos[num].nombre;
+  document.getElementById("descripcion-producto").innerText = productos[num].description;
+  document.getElementById("modal").style.display = "block";
+}
+
+/**
+ * Ocultar un modal con el detalle de Producto
+ * @method cerrarModal
+ */
+cerrarModal = () => {
+  document.getElementById("modal").style.display = "none";
+}
+
+/**
+ * Agregar al carrito(local storage) el id de un producto
+ * @method agregarAlCarrito
+ * @param num - Id del producto(const)
+ */
+agregarAlCarrito = (num) => {
+  let carritoList = localStorage.getItem("carrito");
+  console.log(carritoList);
+
+  if(carritoList==[] || carritoList==null) {
+    carritoList = [];
+  }else{
+    carritoList = JSON.parse(carritoList);
+
+  }
+  carritoList.push(num);
+  console.log(carritoList);
+  localStorage.setItem("carrito", JSON.stringify(carritoList));
+  contarProductos();
+}
+
+/**
+ * Mostrar el catalogo del producto en la seccion main
+ * @method mostrarCatalogo
+ * @param list - lista de productos(por defecto la lista completa)
+ */
+mostrarCatalogo = (list = productos) => {
+  let contenido = "";
+
+  list.forEach((producto, id) => {
+    contenido += `
+                <div>
+                    <img src=" https://ucc-tallerdesarrolloweb.github.io/filminas/images/ejercicios/${producto.imagen}" alt="${producto.nombre}" />
+                    <h3>${producto.nombre}</h3>
+                    <p>${formatPrice(producto.precio)}</p>
+                    <button type="button" onclick="mostrarModal(${id})">Ver detalle de producto</button>
+                    <button type="button" onclick="agregarAlCarrito(${id})">Agregar al Carrito</button>
+                </div>`
+  })
+
+  document.getElementById("catalogo").innerHTML = contenido;
+}
+
+/**
+ * Muestra dinamicamente los productos que estan en el localstorage
+ * @method mostrarCarrito
+ */
+mostrarCarrito = () => {
+  let carritoList = localStorage.getItem("carrito");
+  let contenido = "";
+  carritoList = JSON.parse(carritoList);
+
+  if(carritoList==null) {
+    contenido = `<div>Su carrito de compras esta vacio</div>`;
+  }else {
+    let total = 0;
+    const listProd = [];
+    const listCant = [];
+
+    carritoList.forEach((num) => {
+      if(!listProd.includes(num)){
+        listProd.push(num);
+        listCant.push(1);
+      }else{
+        const inx = listProd.indexOf(num);
+        listCant[inx] += 1;
+      }
+    })
+
+    listProd.forEach((num, id) => {
+      contenido += `<div>
+                  <h3>${productos[num].nombre}</h3>
+                  <p>${formatPrice(productos[num].precio)}</p>
+                  <p>Cantidad: ${listCant[id]}</p>
+                  <button type="button" onclick="eliminarProducto(${id})">Eliminar Producto</button>
+                  </div>`
+      total += productos[num].precio*listCant[id];
+    });
+
+    contenido += `Total: ${formatPrice(total)}`;
+    contenido += `<button type="button" onclick="vaciarCarrito()">Vaciar Carrito</button>`
+  }
+
+  document.getElementById("carrito").innerHTML = contenido;
+}
+
+/**
+ * Borra del localstorage el elemento carrito y recarga la pagina
+ * @method vaciarCarrito
+ */
+let vaciarCarrito = () => {
+  localStorage.removeItem("carrito");
+  window.location.reload();
+}
+
+/**
+ * Elimina un producto del local storage seleccionado por el usuario
+ * @method eliminarProducto
+ * @param id - id(posicion) del producto en el local storage
+ */
+let eliminarProducto = (id) => {
+  let carritoList = localStorage.getItem("carrito");
+  carritoList = JSON.parse(carritoList);
+
+  carritoList.splice(id, 1);
+
+  if(carritoList.length > 0) {
+    localStorage.setItem("carrito", JSON.stringify(carritoList));
+  }else{
+    localStorage.removeItem("carrito");
+  }
+  window.location.reload();
+}
+
+/**
+ * Filtra el catalogo de productos segun los valores ingresados por el usuario
+ * @method filtrarProductos
+ */
+let filtrarProductos = () => {
+  let searchWord = document.getElementById("search").value;
+  let min = document.getElementById("price-min").value;
+  let max = document.getElementById("price-max").value;
+  let marca = document.getElementById("marca").value;
+  let protec = document.getElementById("protectores").checked;
+  let entren = document.getElementById("entrenamiento").checked;
+  let dobok = document.getElementById("dobok").checked;
+  let newLista = productos;
+
+  if(searchWord){
+    newLista = newLista.filter((prod) => prod.nombre.toLowerCase().includes(searchWord.toLowerCase()));
+  }
+
+  if(min){
+    newLista = newLista.filter((prod) => prod.precio >= min);
+  }
+
+  if(max){
+    newLista = newLista.filter((prod) => prod.precio <= max)
+  }
+
+  if(marca != "Todas"){
+    newLista = newLista.filter((prod) => prod.marca == marca);
+  }
+
+  let category = []
+  protec ? category.push("Protectores") : "";
+  entren ? category.push("Entrenamiento") : "";
+  dobok ? category.push("Dobok") : "";
+
+  if(category.length > 0){
+    newLista = newLista.filter((prod) => category.includes(prod.categoria));
+  }
+
+  mostrarCatalogo(newLista);
+}
+
+/**
+ * Formatea el precio para que quede $ ##.###,##
+ * @method filtrarProductos
+ */
+let formatPrice = (price) => {
+  return new Intl.NumberFormat("es-AR", {
+    style: "currency",
+    currency: "ARS"
+  }).format(price);
+}
+
+/**
+ * Cuenta la cantidad de productos en el carrito
+ * @method contarProductos
+ */
+let contarProductos = () => {
+  let carritoList = localStorage.getItem("carrito");
+  carritoList = JSON.parse(carritoList);
+
+  if(carritoList.length > 0) {
+    document.getElementById("cant-prod").innerText = carritoList.length;
+  }
+}
+
+/**
+ * Ordena el catalogo de los productos por precio(mayor a menor y viceversa) y nombre(a-z y z-a)
+ * @method ordenarCatalogo
+ */
+let ordenarCatalogo = () => {
+  const opt = document.getElementById("order").value;
+  let newProductos;
+
+  switch(opt){
+    case "menor":
+      newProductos = productos.sort((a,b) => a.precio - b.precio);
+      break;
+
+    case "mayor":
+      newProductos = productos.sort((a,b) => b.precio - a.precio);
+      break;
+
+    case "a-z":
+      newProductos = productos.sort((a,b) => {
+        if(a.nombre.toLowerCase() < b.nombre.toLowerCase()){
+          return -1;
+        }else{
+          return 1;
+        }
+      });
+      break;
+
+    case "z-a":
+      newProductos = productos.sort((a,b) => {
+        if(a.nombre.toLowerCase() > b.nombre.toLowerCase()){
+          return -1;
+        }else{
+          return 1;
+        }
+      });
+      break;
+
+    default:
+      newProductos = productos;
+      break;
+
+
+  }
+
+  mostrarCatalogo(newProductos);
+}
