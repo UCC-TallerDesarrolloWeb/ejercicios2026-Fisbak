@@ -65,11 +65,11 @@ const productos = [
 /**
  * Mostrar un modal con el detalle de Producto
  * @method mostrarModal
- * @param id - Id del producto(const)
+ * @param num - Id del producto(const)
  */
-mostrarModal = (id) => {
-  document.getElementById("nombre-producto").innerText = productos[id].nombre;
-  document.getElementById("descripcion-producto").innerText = productos[id].description;
+mostrarModal = (num) => {
+  document.getElementById("nombre-producto").innerText = productos[num].nombre;
+  document.getElementById("descripcion-producto").innerText = productos[num].description;
   document.getElementById("modal").style.display = "block";
 }
 
@@ -82,20 +82,140 @@ cerrarModal = () => {
 }
 
 /**
+ * Agregar al carrito(local storage) el id de un producto
+ * @method agregarAlCarrito
+ * @param num - Id del producto(const)
+ */
+agregarAlCarrito = (num) => {
+  let carritoList = localStorage.getItem("carrito");
+  console.log(carritoList);
+
+  if(carritoList==[] || carritoList==null) {
+    carritoList = [];
+  }else{
+    carritoList = JSON.parse(carritoList);
+
+  }
+  carritoList.push(num);
+  console.log(carritoList);
+  localStorage.setItem("carrito", JSON.stringify(carritoList));
+}
+
+/**
  * Mostrar el catalogo del producto en la seccion main
  * @method mostrarCatalogo
+ * @param list - lista de productos(por defecto la lista completa)
  */
-mostrarCatalogo = () => {
+mostrarCatalogo = (list = productos) => {
   let contenido = "";
 
-  productos.forEach((producto, id) => {
+  list.forEach((producto, id) => {
     contenido += `
                 <div>
                     <img src=" https://ucc-tallerdesarrolloweb.github.io/filminas/images/ejercicios/${producto.imagen}" alt="${producto.nombre}" />
                     <h3>${producto.nombre}</h3>
+                    <p>${producto.precio}</p>
                     <button type="button" onclick="mostrarModal(${id})">Ver detalle de producto</button>
+                    <button type="button" onclick="agregarAlCarrito(${id})">Agregar al Carrito</button>
                 </div>`
   })
 
   document.getElementById("catalogo").innerHTML = contenido;
+}
+
+/**
+ * Muestra dinamicamente los productos que estan en el localstorage
+ * @method mostrarCarrito
+ */
+mostrarCarrito = () => {
+  let carritoList = localStorage.getItem("carrito");
+  let contenido = "";
+
+  if(carritoList==null) {
+    contenido = `<div>Su carrito de compras esta vacio</div>`;
+  }else {
+
+    carritoList = JSON.parse(carritoList);
+    carritoList.forEach((num, id) => {
+      contenido += `<div>
+                  <h3>${productos[num].nombre}</h3>
+                  <p>${productos[num].precio}</p>
+                  <button type="button" onclick="eliminarProducto(${id})">Eliminar Producto</button>
+                  </div>`
+    });
+
+    contenido += `<button type="button" onclick="vaciarCarrito()">Vaciar Carrito</button>`
+  }
+
+  document.getElementById("carrito").innerHTML = contenido;
+}
+
+/**
+ * Borra del localstorage el elemento carrito y recarga la pagina
+ * @method vaciarCarrito
+ */
+let vaciarCarrito = () => {
+  localStorage.removeItem("carrito");
+  window.location.reload();
+}
+
+/**
+ * Elimina un producto del local storage seleccionado por el usuario
+ * @method eliminarProducto
+ * @param id - id(posicion) del producto en el local storage
+ */
+let eliminarProducto = (id) => {
+  let carritoList = localStorage.getItem("carrito");
+  carritoList = JSON.parse(carritoList);
+
+  carritoList.splice(id, 1);
+
+  if(carritoList.length > 0) {
+    localStorage.setItem("carrito", JSON.stringify(carritoList));
+  }else{
+    localStorage.removeItem("carrito");
+  }
+  window.location.reload();
+}
+
+/**
+ * Filtra el catalogo de productos segun los valores ingresados por el usuario
+ * @method filtrarProductos
+ */
+let filtrarProductos = () => {
+  let searchWord = document.getElementById("search").value;
+  let min = document.getElementById("price-min").value;
+  let max = document.getElementById("price-max").value;
+  let marca = document.getElementById("marca").value;
+  let protec = document.getElementById("protectores").checked;
+  let entren = document.getElementById("entrenamiento").checked;
+  let dobok = document.getElementById("dobok").checked;
+  let newLista = productos;
+
+  if(searchWord){
+    newLista = newLista.filter((prod) => prod.nombre.toLowerCase().includes(searchWord.toLowerCase()));
+  }
+
+  if(min){
+    newLista = newLista.filter((prod) => prod.precio >= min);
+  }
+
+  if(max){
+    newLista = newLista.filter((prod) => prod.precio <= max)
+  }
+
+  if(marca != "Todas"){
+    newLista = newLista.filter((prod) => prod.marca == marca);
+  }
+
+  let category = []
+  protec ? category.push("Protectores") : "";
+  entren ? category.push("Entrenamiento") : "";
+  dobok ? category.push("Dobok") : "";
+
+  if(category.length > 0){
+    newLista = newLista.filter((prod) => category.includes(prod.categoria));
+  }
+
+  mostrarCatalogo(newLista);
 }
