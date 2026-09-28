@@ -6,13 +6,14 @@
         <script type="text/javascript" src="tienda.js"></script>
     </head>
 
-    <body class="grid-container" onload="mostrarCatalogo()">
+    <body class="grid-container" onload="mostrarCatalogo();contarProductos();">
         <header class="item1">
             Catalogo de Productos
         </header>
         <nav class="item2">
             <a href="productos.html">Catalogo de Productos</a>
             <a href="carrito.html">Carrito de Compras</a>
+            <div id="cant-prod">0</div>
         </nav>
         <aside class="item3">
             <fieldset>
