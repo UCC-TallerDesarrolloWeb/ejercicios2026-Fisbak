@@ -21,7 +21,6 @@
                 <label for="search">Buscar</label>
                 <input type="text" name="search" id="search" placeholder="Buscar..." onchange="filtrarProductos()">
             </fieldset>
-
             <fieldset>
                 <legend>Precios</legend>
                 <p>
@@ -51,6 +50,15 @@
                     <input type="checkbox" name="tipo" id="dobok" value="dobok" onchange="filtrarProductos()">
                     <label for="dobok">Dobok</label>
                 </p>
+            </fieldset>
+            <fieldset>
+                <legend>Ordenar Catalogo</legend>
+                <select id="order" onchange="ordenarCatalogo()">
+                    <option value="mayor">Por precio - de Mayor a Menor</option>
+                    <option value="menor">Por precio - de Menor a Mayor</option>
+                    <option value="a-z">Por Nombre - de A a Z</option>
+                    <option value="z-a">Por Nombre - de Z a A</option>
+                </select>
             </fieldset>
         </aside>
         <dialog id="modal">
