@@ -131,20 +131,36 @@ mostrarCatalogo = (list = productos) => {
 mostrarCarrito = () => {
   let carritoList = localStorage.getItem("carrito");
   let contenido = "";
+  carritoList = JSON.parse(carritoList);
 
   if(carritoList==null) {
     contenido = `<div>Su carrito de compras esta vacio</div>`;
   }else {
+    let total = 0;
+    const listProd = [];
+    const listCant = [];
 
-    carritoList = JSON.parse(carritoList);
-    carritoList.forEach((num, id) => {
+    carritoList.forEach((num) => {
+      if(!listProd.includes(num)){
+        listProd.push(num);
+        listCant.push(1);
+      }else{
+        const inx = listProd.indexOf(num);
+        listCant[inx] += 1;
+      }
+    })
+
+    listProd.forEach((num, id) => {
       contenido += `<div>
                   <h3>${productos[num].nombre}</h3>
                   <p>${formatPrice(productos[num].precio)}</p>
+                  <p>Cantidad: ${listCant[id]}</p>
                   <button type="button" onclick="eliminarProducto(${id})">Eliminar Producto</button>
                   </div>`
+      total += productos[num].precio*listCant[id];
     });
 
+    contenido += `Total: ${formatPrice(total)}`;
     contenido += `<button type="button" onclick="vaciarCarrito()">Vaciar Carrito</button>`
   }
 
@@ -232,7 +248,10 @@ let formatPrice = (price) => {
   }).format(price);
 }
 
-
+/**
+ * Cuenta la cantidad de productos en el carrito
+ * @method contarProductos
+ */
 let contarProductos = () => {
   let carritoList = localStorage.getItem("carrito");
   carritoList = JSON.parse(carritoList);
@@ -242,7 +261,10 @@ let contarProductos = () => {
   }
 }
 
-
+/**
+ * Ordena el catalogo de los productos por precio(mayor a menor y viceversa) y nombre(a-z y z-a)
+ * @method ordenarCatalogo
+ */
 let ordenarCatalogo = () => {
   const opt = document.getElementById("order").value;
   let newProductos;
