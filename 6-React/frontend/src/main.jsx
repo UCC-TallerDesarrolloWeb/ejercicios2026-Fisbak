@@ -1,10 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from "react-router"
-import './index.css'
-import Login from "./Login.jsx";
-import Activities from "./Activities.jsx";
-import Home from "./Home.jsx";
+import '@styles/index.css'
+import Login from "@pages/Login.jsx";
+import Activities from "@pages/Activities.jsx";
+import Home from "@pages/Home.jsx";
 import Layout from "./Layout.jsx";
 
 
