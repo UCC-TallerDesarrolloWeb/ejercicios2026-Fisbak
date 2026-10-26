@@ -1,20 +1,27 @@
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const navigate = useNavigate();
 
-    return (
+    const handlelogout = () => {
+        localStorage.removeItem("isLoggedIn");
+        navigate("/");
+    }
+
+    return(
         <header>
             <h1>GYM</h1>
             <nav>
-                <a href="/6-React/frontend/public">GYM</a>
+                <a href="/">Home</a>
                 {
                     isLoggedIn ? (
-                        <button onClick={handleLogout}>Cerrar Sesion</button>
-                        ) : (
-                        <a href="/pages/Login">Login</a>
+                        <button onClick={handlelogout}>Cerrar Sesion</button>
+                    ) : (
+                        <a href="/login">Login</a>
                     )
                 }
-                <a href="/pages/Activities">Actividades</a>
+                <a href="/activities">Actividades</a>
             </nav>
         </header>
     )
