@@ -1,0 +1,18 @@
+.login-container {
+    display: flex;
+    width: 100vm;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.login-form{
+    display: block;
+    text-align: center;
+}
+
+.login-form button {
+    background-color: lightgray;
+}
+
+label{
+    color: red;
+}
