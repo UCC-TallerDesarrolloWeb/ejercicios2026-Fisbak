@@ -64,3 +64,14 @@ export async function updateToCart(itemId, qty){
 
     return res.json();
 }
+
+//ELIMINAR PRODUCTO DE CARRITO
+export async function removeItem(itemId){
+    const res = await fetch(`${BASE_URL}cart/${itemId}`, {
+        method: "DELETE"
+    });
+
+    if(!res.ok)throw new Error("Error al eliminar el producto en el carrito");
+
+    return true;
+}

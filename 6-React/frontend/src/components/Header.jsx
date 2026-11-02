@@ -24,6 +24,8 @@ const Header = () => {
                 <a href="/activities">Actividades</a>
                 <a href="/poke">PokeData</a>
                 <a href="/poke2">PokeData2</a>
+                <a href="/store">Store</a>
+                <a href="/cart">Cart</a>
             </nav>
         </header>
     )

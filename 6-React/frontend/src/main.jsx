@@ -8,6 +8,8 @@ import Home from "@pages/Home.jsx";
 import Layout from "./Layout.jsx";
 import Poke from "@pages/Poke.jsx";
 import Poke2 from "@pages/Poke2.jsx";
+import Store from "@pages/Store.jsx";
+import Cart from "@pages/Cart.jsx";
 
 
 
@@ -21,6 +23,8 @@ createRoot(document.getElementById('root')).render(
                     <Route path="/activities" element={<Activities />} />
                     <Route path="/poke" element={<Poke />} />
                     <Route path="/poke2" element={<Poke2 />} />
+                    <Route path="/store" element={<Store />} />
+                    <Route path="/cart" element={<Cart />} />
                 </Route>
             </Routes>
         </BrowserRouter>
