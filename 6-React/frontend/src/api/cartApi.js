@@ -40,10 +40,12 @@ export async function addToCart(product){
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(newItem),
         });
+
+        if(!res.ok)throw new Error("Error al guardar el producto en el carrito");
+        return res.json();
     }
 
-    if(!res.ok)throw new Error("Error al guardar el producto en el carrito");
-    return res.json;
+
 }
 
 //ACTUALIZAR CANTIDAD DE PRODUCTO
@@ -55,7 +57,7 @@ export async function updateToCart(itemId, qty){
     const res = await fetch(`${BASE_URL}cart/${itemId}`, {
         method: "PATCH",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({qty});
+        body: JSON.stringify({qty})
     });
 
     if(!res.ok) throw new Error("Error al actualizar la cantidad de productos en carrito");
