@@ -43,7 +43,7 @@ const Activities = () => {
         <div className="activities-container">
             {
                 activities.map((actividad,index)=>(
-                    <Card key={index} title={actividad.nombre} subtitle={actividad.descripcion}>
+                    <Card key={index} title={actividad.nombre} subtitle={actividad.descripcion}>git
                         <ul>
                             {actividad.horarios.map((horario,i)=>(
                                 <li key={i}>
