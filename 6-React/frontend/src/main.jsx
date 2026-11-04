@@ -5,7 +5,7 @@ import '@styles/index.css'
 import Login from "@pages/Login.jsx";
 import Activities from "@pages/Activities.jsx";
 import Home from "@pages/Home.jsx";
-import Layout from "./Layout.jsx";
+import Layout from "@components/Layout.jsx";
 import Poke from "@pages/Poke.jsx";
 import Poke2 from "@pages/Poke2.jsx";
 
